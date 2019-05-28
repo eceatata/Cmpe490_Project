@@ -5,13 +5,13 @@
 #define DHT11_PIN 5
 #define DHTTYPE DHT11
 
-const int DIST_LOW_DEADZONE = 3;
-const int DIST_UP_DEADZONE = 200;
-const int DIST_LOW_LIMIT = 5;
-const int DIST_UP_LIMIT = 20;
+const float DIST_LOW_DEADZONE = 3;
+const float DIST_UP_DEADZONE = 200;
+const float DIST_LOW_LIMIT = 5;
+const float DIST_UP_LIMIT = 20;
 const int N_MEASUREMENTS = 5;
 
-bool print_distances = false;
+bool print_distances = true;
 
 const int DHT_RATE = 10000; //miliseconds
 
@@ -31,7 +31,9 @@ char message_buff[100];
 void callback(char* topic, byte* payload, unsigned int length);
 String buildClientName();
 String buildJson();
+
 void countPeople();
+float getDistance();
 float getTemp();
 float getHumid();
 int peopleCount = 0;
@@ -180,7 +182,7 @@ void countPeople() {
    }
    //CHECK PEOPLE GOING OUT
    measured = 0;
-   for(int i=0; i<N_MEASUREMENTS; i++){
+   for(int j=0; j<N_MEASUREMENTS; j++){
     float distance = getDistance(2);
     if(distance < DIST_LOW_DEADZONE || distance > DIST_UP_DEADZONE){
       continue;
@@ -242,7 +244,7 @@ float getDistance(int inOut){
    digitalWrite(t, HIGH);
    delayMicroseconds(10);
    digitalWrite(t, LOW);
-   
+
    // Reads the echoPin, returns the sound wave travel time in microseconds
-   return pulseIn(e, HIGH) * 0.034 / 2;
+   return pulseIn(e, HIGH, 11764) * 0.034 / 2;
 }
