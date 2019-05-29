@@ -18,8 +18,8 @@ const int DHT_RATE = 10000; //miliseconds
 unsigned long oldTime = 0;
 unsigned long newTime;
 int gCount = 0;
-float gTemp = 25.00;
-float gHumid = 30.00;
+float gTemp = -1; //Cloud doesn't update when -1
+float gHumid = -1; //Cloud doesn't update when -1
 
 void callback(char* topic, byte* payload, unsigned int length);
 
