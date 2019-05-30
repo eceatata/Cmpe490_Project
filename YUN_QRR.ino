@@ -11,13 +11,15 @@ const float DIST_LOW_LIMIT = 5;
 const float DIST_UP_LIMIT = 20;
 const int N_MEASUREMENTS = 5;
 
+float gCount = 10;
+
 bool print_distances = true;
 
 const int DHT_RATE = 10000; //miliseconds
 
 unsigned long oldTime = 0;
 unsigned long newTime;
-int gCount = 0;
+
 float gTemp = -1; //Cloud doesn't update when -1
 float gHumid = -1; //Cloud doesn't update when -1
 
